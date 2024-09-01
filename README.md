@@ -40,6 +40,100 @@ Start the server
 bun run start
 ```
 
+## API Docs 😭
+
+### `GET /`
+
+Returns a message:
+
+```json
+{
+  "message": "Hello World"
+}
+```
+
+### `POST /qr`
+
+Generates a QR code.
+
+### Request body
+
+Any text data
+
+Examples:
+```
+https://tobycm.dev
+```
+
+### Request query parameters
+
+- `format`
+
+    The format of the QR code. Default is `png`.
+    
+    Supported formats:
+    - `png`
+    - `svg`
+    - `utf8` (try it out xd)
+
+- `margin`
+
+    The margin of the QR code. Default is `4`.
+
+- `errorCorrection`
+
+    The error correction level of the QR code. Default is `M`.
+
+    Supported error correction levels:
+    - `L`
+    - `M`
+    - `Q`
+    - `H`
+
+- `scale`
+
+    The pixel per block of the QR code. Default is `4`.
+
+- `width`
+
+    The width of the QR code. Overrides `scale`.
+
+- `background`
+
+    The background color of the QR code in RGBA. Default is `#ffffffff`.
+
+- `foreground`
+
+    The foreground color of the QR code in RGBA. Default is `#000000ff`.
+
+### Response
+
+Headers:
+- `Content-Type`
+
+    The content type of the QR code. Based on the `format` query parameter.
+
+Body:
+
+The QR code image or text data.
+
+
+### Example
+
+Request:
+```
+POST /qr?format=svg&margin=8&errorCorrection=H&scale=8&background=%23ff0000ff&foreground=%2300ff00ff
+```
+
+Body:
+```
+https://tobycm.dev
+```
+
+Response:
+![qr that loads to https://tobycm.dev with a red background and green foreground in svg format](examples/tobycm.dev.qr.svg)
+
+
 ## 📚 Tech Stack
 
 - [Bun](https://bun.sh)
